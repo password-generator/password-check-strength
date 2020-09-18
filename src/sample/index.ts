@@ -1,4 +1,5 @@
-/* eslint-disable */
+/* eslint-disable no-console */
+/* eslint-disable import/no-extraneous-dependencies */
 import { generatePassword, Preferences } from '@password-generator/package';
 
 import checkStrength from '../index';
@@ -16,6 +17,6 @@ const preferences: Preferences = {
 
 const password = generatePassword(preferences);
 
-const result = checkStrength(password, '!@#$%^&*(){}[]=<>/,.');
+const result = checkStrength(password);
 
 console.log(result);

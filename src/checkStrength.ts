@@ -1,4 +1,4 @@
-import GetPoints from './getPoints';
+import Points from './Points';
 
 interface ICheckResult {
   points: number;
@@ -6,7 +6,7 @@ interface ICheckResult {
 }
 
 interface ICheckStrength {
-  (password: string, validSymbolsCharacters: string): ICheckResult;
+  (password: string, validSymbolsChars?: string): ICheckResult;
 }
 
 const getRange = (points: number) => {
@@ -26,27 +26,16 @@ const getRange = (points: number) => {
     case points >= 0:
       return 'Very Weak';
     default:
-      return null;
+      return '';
   }
 };
 
-const checkStrength: ICheckStrength = (password, validSymbolsCharacters) => {
-  let points = 0;
+const checkStrength: ICheckStrength = (password, validSymbolsChars) => {
+  const points = new Points(password, validSymbolsChars).getAll();
 
-  const getPoints = new GetPoints(password, validSymbolsCharacters);
+  const range = getRange(points);
 
-  points += getPoints.length();
-  points += getPoints.letters();
-  points += getPoints.numbers();
-  points += getPoints.characters();
-  points += getPoints.bonus();
-
-  const checkResult: ICheckResult = {
-    points,
-    range: getRange(points),
-  };
-
-  return checkResult;
+  return { points, range };
 };
 
 export default checkStrength;

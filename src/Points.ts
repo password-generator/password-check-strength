@@ -7,28 +7,33 @@ interface ITotalOfChar {
   symbols: number;
 }
 
-type THeightPoints = 25 | 10 | 5;
-type TMediumPoints = 20 | 10 | 5;
-type TLowPoints = 5 | 2 | 3;
+type THeightPoints = 25 | 10 | 5 | 0;
+type TMediumPoints = 20 | 10 | 5 | 0;
+type TLowPoints = 5 | 2 | 3 | 0;
 
-interface IGetPoints {
-  passwordLength: number;
-  totalOfChar: ITotalOfChar;
+interface IPoints {
   length: () => THeightPoints;
   letters: () => TMediumPoints;
   numbers: () => TMediumPoints;
   characters: () => THeightPoints;
   bonus: () => TLowPoints;
+  getAll: () => number;
 }
 
-class GetPoints implements IGetPoints {
-  passwordLength: number;
+class Points implements IPoints {
+  private passwordLength: number;
 
-  totalOfChar: ITotalOfChar;
+  private totalOfChar: ITotalOfChar;
 
-  constructor(password: string, validSymbolsChar: string) {
+  constructor(password: string, validSymbolsChars?: string) {
+    const symbolsChar =
+      validSymbolsChars || password.split(/[A-z]|[0-9]/g).join('');
+
+    const searchNextCharacterInsteadOfUseToValidation = '\\';
     const symbolsSearchRegex: RegExp = new RegExp(
-      `${validSymbolsChar.split('').join('|\\')}`,
+      `${searchNextCharacterInsteadOfUseToValidation}${symbolsChar
+        .split('')
+        .join(`|${searchNextCharacterInsteadOfUseToValidation}`)}`,
       'g'
     );
 
@@ -36,7 +41,7 @@ class GetPoints implements IGetPoints {
 
     this.totalOfChar = {
       letters: {
-        lowercase: password.split(/a-z/g).length,
+        lowercase: password.split(/[a-z]/g).length,
         uppercase: password.split(/[A-Z]/g).length,
       },
       numbers: password.split(/[0-9]/g).length,
@@ -56,7 +61,7 @@ class GetPoints implements IGetPoints {
         return 5;
 
       default:
-        return null;
+        return 0;
     }
   }
 
@@ -71,10 +76,10 @@ class GetPoints implements IGetPoints {
         return 10;
 
       case !(letters.uppercase && letters.lowercase):
-        return null;
+        return 0;
 
       default:
-        return null;
+        return 0;
     }
   }
 
@@ -87,10 +92,10 @@ class GetPoints implements IGetPoints {
         return 10;
 
       case this.totalOfChar.numbers < 1:
-        return null;
+        return 0;
 
       default:
-        return null;
+        return 0;
     }
   }
 
@@ -103,10 +108,10 @@ class GetPoints implements IGetPoints {
         return 10;
 
       case this.totalOfChar.symbols < 1:
-        return null;
+        return 0;
 
       default:
-        return null;
+        return 0;
     }
   }
 
@@ -124,9 +129,21 @@ class GetPoints implements IGetPoints {
         return 2;
 
       default:
-        return null;
+        return 0;
     }
+  }
+
+  getAll() {
+    let pointing = 0;
+
+    pointing += this.length();
+    pointing += this.letters();
+    pointing += this.numbers();
+    pointing += this.characters();
+    pointing += this.bonus();
+
+    return pointing;
   }
 }
 
-export default GetPoints;
+export default Points;
