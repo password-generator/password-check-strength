@@ -9,7 +9,7 @@
     "ecmaVersion": 12,
     "sourceType": "module"
   },
-  "plugins": ["@typescript-eslint", "import-helpers"],
+  "plugins": ["@typescript-eslint", "prettier", "import-helpers"],
   "rules": {
     "prettier/prettier": "error",
     "no-unused-vars": "off",
@@ -23,6 +23,12 @@
           "order": "asc",
           "ignoreCase": true
         }
+      }
+    ],
+    "import/extensions": [
+      "error",
+      {
+        "ts": "never"
       }
     ]
   },
