@@ -20,7 +20,7 @@ jobs:
         run: yarn install
 
       - name: Build dist files
-        run: yarn compile-dist
+        run: yarn build
 
       - name: Publish to NPM
         uses: JS-DevTools/npm-publish@v1
