@@ -1,6 +1,4 @@
-export interface ICheckStrength {
-  (password: string, validSymbolsChars?: string): {
-    points: number;
-    range: string;
-  };
-}
+export type CheckStrengthResult = {
+  points: number;
+  range: string;
+};

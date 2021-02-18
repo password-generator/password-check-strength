@@ -1,5 +1,5 @@
 import Points from './Points';
-import { ICheckStrength } from './types';
+import { CheckStrengthResult } from './types';
 
 const getRange = (points: number) => {
   switch (true) {
@@ -21,6 +21,10 @@ const getRange = (points: number) => {
       return '';
   }
 };
+
+interface ICheckStrength {
+  (password: string, validSymbolsChars?: string): CheckStrengthResult;
+}
 
 const checkStrength: ICheckStrength = (password, validSymbolsChars) => {
   const points = new Points(password, validSymbolsChars).getAll();
