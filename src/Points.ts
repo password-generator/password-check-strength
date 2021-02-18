@@ -30,12 +30,14 @@ class Points implements IPoints {
       validSymbolsChars || password.split(/[A-z]|[0-9]/g).join('');
 
     const searchNextCharacterInsteadOfUseToValidation = '\\';
-    const symbolsSearchRegex: RegExp = new RegExp(
-      `${searchNextCharacterInsteadOfUseToValidation}${symbolsChar
-        .split('')
-        .join(`|${searchNextCharacterInsteadOfUseToValidation}`)}`,
-      'g'
-    );
+    const symbolsSearchRegex: RegExp | null = symbolsChar
+      ? new RegExp(
+          `${searchNextCharacterInsteadOfUseToValidation}${symbolsChar
+            .split('')
+            .join(`|${searchNextCharacterInsteadOfUseToValidation}`)}`,
+          'g'
+        )
+      : null;
 
     this.passwordLength = password.length;
 
@@ -45,7 +47,9 @@ class Points implements IPoints {
         uppercase: password.split(/[A-Z]/g).length,
       },
       numbers: password.split(/[0-9]/g).length,
-      symbols: password.split(symbolsSearchRegex).length,
+      symbols: symbolsSearchRegex
+        ? password.split(symbolsSearchRegex).length
+        : 0,
     };
   }
 

@@ -1,6 +1,6 @@
 {
   "name": "@password-generator/check-strength",
-  "version": "1.0.1",
+  "version": "2.0.2",
   "main": "dist/index.js",
   "files": [
     "tsconfig.json",
