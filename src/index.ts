@@ -1,3 +1,3 @@
-import checkStrength from './checkStrength';
+export { default as checkStrength } from './checkStrength';
 
-export default checkStrength;
+export * from './types';
