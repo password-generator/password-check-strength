@@ -1,13 +1,5 @@
 import Points from './Points';
-
-interface ICheckResult {
-  points: number;
-  range: string;
-}
-
-interface ICheckStrength {
-  (password: string, validSymbolsChars?: string): ICheckResult;
-}
+import { ICheckStrength } from './types';
 
 const getRange = (points: number) => {
   switch (true) {

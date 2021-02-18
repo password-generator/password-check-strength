@@ -72,7 +72,7 @@
 <h2 id="how-to-use">🤔 How To Use</h2>
 
 ```typescript
-import checkStrength from '@password-generator/password-check-strength';
+import { checkStrength } from '@password-generator/password-check-strength';
 
 import { generatePassword, Preferences } from '@password-generator/package';
 

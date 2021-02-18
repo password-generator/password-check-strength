@@ -2,7 +2,7 @@
 /* eslint-disable import/no-extraneous-dependencies */
 import { generatePassword, Preferences } from '@password-generator/package';
 
-import checkStrength from '../index';
+import { checkStrength } from '../index';
 
 const preferences: Preferences = {
   length: 12,
