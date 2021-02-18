@@ -43,13 +43,11 @@ class Points implements IPoints {
 
     this.totalOfChar = {
       letters: {
-        lowercase: password.split(/[a-z]/g).length,
-        uppercase: password.split(/[A-Z]/g).length,
+        lowercase: password.split(/[a-z]/g).length - 1,
+        uppercase: password.split(/[A-Z]/g).length - 1,
       },
-      numbers: password.split(/[0-9]/g).length,
-      symbols: symbolsSearchRegex
-        ? password.split(symbolsSearchRegex).length
-        : 0,
+      numbers: password.split(/[0-9]/g).length - 1,
+      symbols: password.split(symbolsSearchRegex).length - 1,
     };
   }
 
@@ -71,15 +69,16 @@ class Points implements IPoints {
 
   letters() {
     const { letters } = this.totalOfChar;
+    console.log(letters);
 
     switch (true) {
-      case !!(letters.uppercase && letters.lowercase):
+      case !!letters.uppercase && !!letters.lowercase:
         return 20;
 
-      case !!(!letters.uppercase && letters.lowercase):
+      case !letters.uppercase && !!letters.lowercase:
         return 10;
 
-      case !(letters.uppercase && letters.lowercase):
+      case !letters.uppercase && !letters.lowercase:
         return 0;
 
       default:
@@ -123,13 +122,15 @@ class Points implements IPoints {
     const { letters, numbers, symbols } = this.totalOfChar;
 
     switch (true) {
-      case !!(letters.uppercase && letters.lowercase && numbers && symbols):
+      case !!letters.uppercase && !!letters.lowercase && !!numbers && !!symbols:
         return 5;
 
-      case !!(letters.uppercase || (letters.lowercase && numbers && symbols)):
+      case (!!letters.uppercase || !!letters.lowercase) &&
+        !!numbers &&
+        !!symbols:
         return 3;
 
-      case !!(letters.uppercase || (letters.lowercase && numbers)):
+      case (!!letters.uppercase || !!letters.lowercase) && !!numbers:
         return 2;
 
       default:
