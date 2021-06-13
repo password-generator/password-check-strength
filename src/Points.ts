@@ -69,7 +69,6 @@ class Points implements IPoints {
 
   letters() {
     const { letters } = this.totalOfChar;
-    console.log(letters);
 
     switch (true) {
       case !!letters.uppercase && !!letters.lowercase:
